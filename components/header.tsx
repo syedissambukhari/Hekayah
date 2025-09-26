@@ -969,34 +969,243 @@ export default function Header() {
                         </CollapsibleContent>
                       </Collapsible>
 
-                      {/* Navigation Items */}
-                      {navigationItems.map((item) => (
-                        <Collapsible key={item.label}>
-                          <CollapsibleTrigger
-                            onClick={() => toggleSection(item.label)}
-                            className="flex items-center justify-between w-full px-4 py-3 text-left text-base font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
-                          >
-                            <span>{item.label}</span>
-                            <ChevronDown
-                              className={`w-4 h-4 text-gray-500 transition-transform ${openSections.includes(item.label) ? "rotate-180" : ""
-                                }`}
-                            />
-                          </CollapsibleTrigger>
-                          <CollapsibleContent className="px-4 pb-2">
-                            <div className="space-y-1 pl-4 border-l-2 border-gray-100">
-                              {item.items.map((subItem) => (
-                                <Link
-                                  key={subItem}
-                                  href={`/${item.label.toLowerCase().replace(/\s+/g, "-")}/${subItem.toLowerCase().replace(/\s+/g, "-")}`}
-                                  className="block py-2 px-3 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
-                                >
-                                  {subItem}
-                                </Link>
-                              ))}
-                            </div>
-                          </CollapsibleContent>
-                        </Collapsible>
-                      ))}
+                      {/* Print & Marketing */}
+                      <Collapsible>
+                        <CollapsibleTrigger
+                          onClick={() => toggleSection("Print & Marketing")}
+                          className="flex items-center justify-between w-full px-4 py-3 text-left text-base font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                        >
+                          <span>Print & Marketing</span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gray-500 transition-transform ${openSections.includes("Print & Marketing") ? "rotate-180" : ""
+                              }`}
+                          />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="px-4 pb-2">
+                          <div className="space-y-1 pl-4 border-l-2 border-gray-100">
+                            {printMarketingCategories.map((category) => (
+                              <div key={category.title} className="space-y-1">
+                                <div className="text-sm font-medium text-gray-800 py-1">
+                                  {category.title}
+                                </div>
+                                {category.items.map((item) => (
+                                  <Link
+                                    key={item}
+                                    href={`/product/print-marketing/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                                    className="block py-1 px-3 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                  >
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+
+                      {/* Fashion & Textile */}
+                      <Collapsible>
+                        <CollapsibleTrigger
+                          onClick={() => toggleSection("Fashion & Textile")}
+                          className="flex items-center justify-between w-full px-4 py-3 text-left text-base font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                        >
+                          <span>Fashion & Textile</span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gray-500 transition-transform ${openSections.includes("Fashion & Textile") ? "rotate-180" : ""
+                              }`}
+                          />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="px-4 pb-2">
+                          <div className="space-y-1 pl-4 border-l-2 border-gray-100">
+                            {fashionTextileCategories.map((category) => (
+                              <div key={category.title} className="space-y-1">
+                                <div className="text-sm font-medium text-gray-800 py-1">
+                                  {category.title}
+                                </div>
+                                {category.items.map((item) => (
+                                  <Link
+                                    key={item}
+                                    href={`/product/fashion-textile/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                                    className="block py-1 px-3 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                  >
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+
+                      {/* Office & Store Branding */}
+                      <Collapsible>
+                        <CollapsibleTrigger
+                          onClick={() => toggleSection("Office & Store Branding")}
+                          className="flex items-center justify-between w-full px-4 py-3 text-left text-base font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                        >
+                          <span>Office & Store Branding</span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gray-500 transition-transform ${openSections.includes("Office & Store Branding") ? "rotate-180" : ""
+                              }`}
+                          />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="px-4 pb-2">
+                          <div className="space-y-1 pl-4 border-l-2 border-gray-100">
+                            {officeBrandingCategories.map((category) => (
+                              <div key={category.title} className="space-y-1">
+                                <div className="text-sm font-medium text-gray-800 py-1">
+                                  {category.title}
+                                </div>
+                                {category.items.map((item) => (
+                                  <Link
+                                    key={item}
+                                    href={`/product/office-branding/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                                    className="block py-1 px-3 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                  >
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+
+                      {/* Signages */}
+                      <Collapsible>
+                        <CollapsibleTrigger
+                          onClick={() => toggleSection("Signages")}
+                          className="flex items-center justify-between w-full px-4 py-3 text-left text-base font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                        >
+                          <span>Signages</span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gray-500 transition-transform ${openSections.includes("Signages") ? "rotate-180" : ""
+                              }`}
+                          />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="px-4 pb-2">
+                          <div className="space-y-1 pl-4 border-l-2 border-gray-100">
+                            {signagesCategories.map((category) => (
+                              <div key={category.title} className="space-y-1">
+                                <div className="text-sm font-medium text-gray-800 py-1">
+                                  {category.title}
+                                </div>
+                                {category.items.map((item) => (
+                                  <Link
+                                    key={item}
+                                    href={`/product/signages/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                                    className="block py-1 px-3 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                  >
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+
+                      {/* Flags */}
+                      <Collapsible>
+                        <CollapsibleTrigger
+                          onClick={() => toggleSection("Flags")}
+                          className="flex items-center justify-between w-full px-4 py-3 text-left text-base font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                        >
+                          <span>Flags</span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gray-500 transition-transform ${openSections.includes("Flags") ? "rotate-180" : ""
+                              }`}
+                          />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="px-4 pb-2">
+                          <div className="space-y-1 pl-4 border-l-2 border-gray-100">
+                            {flagsCategories.map((category) => (
+                              <div key={category.title} className="space-y-1">
+                                <div className="text-sm font-medium text-gray-800 py-1">
+                                  {category.title}
+                                </div>
+                                {category.items.map((item) => (
+                                  <Link
+                                    key={item}
+                                    href={`/product/flags/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                                    className="block py-1 px-3 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                  >
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+
+                      {/* Backdrops & Exhibition */}
+                      <Collapsible>
+                        <CollapsibleTrigger
+                          onClick={() => toggleSection("Backdrops & Exhibition")}
+                          className="flex items-center justify-between w-full px-4 py-3 text-left text-base font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                        >
+                          <span>Backdrops & Exhibition</span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gray-500 transition-transform ${openSections.includes("Backdrops & Exhibition") ? "rotate-180" : ""
+                              }`}
+                          />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="px-4 pb-2">
+                          <div className="space-y-1 pl-4 border-l-2 border-gray-100">
+                            {backdropsCategories.map((category) => (
+                              <div key={category.title} className="space-y-1">
+                                <div className="text-sm font-medium text-gray-800 py-1">
+                                  {category.title}
+                                </div>
+                                {category.items.map((item) => (
+                                  <Link
+                                    key={item}
+                                    href={`/product/backdrops/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                                    className="block py-1 px-3 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                  >
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+
+                      {/* Corporate Gifts & Bags */}
+                      <Collapsible>
+                        <CollapsibleTrigger
+                          onClick={() => toggleSection("Corporate Gifts & Bags")}
+                          className="flex items-center justify-between w-full px-4 py-3 text-left text-base font-medium text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                        >
+                          <span>Corporate Gifts & Bags</span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gray-500 transition-transform ${openSections.includes("Corporate Gifts & Bags") ? "rotate-180" : ""
+                              }`}
+                          />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="px-4 pb-2">
+                          <div className="space-y-1 pl-4 border-l-2 border-gray-100">
+                            {corporateGiftsCategories.map((category) => (
+                              <div key={category.title} className="space-y-1">
+                                <div className="text-sm font-medium text-gray-800 py-1">
+                                  {category.title}
+                                </div>
+                                {category.items.map((item) => (
+                                  <Link
+                                    key={item}
+                                    href={`/product/corporate-gifts/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                                    className="block py-1 px-3 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                  >
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
                     </nav>
                   </div>
 
