@@ -270,7 +270,7 @@ export default function ContactPage() {
                 <h3 className="text-xl font-semibold mb-2">Call Us</h3>
                 <p className="text-gray-600 mb-4">Speak directly with our team for immediate assistance</p>
                 <Button variant="outline" className="w-full bg-transparent">
-                  +1 234 567 8900
+                  +971 50 537 3817
                 </Button>
               </CardContent>
             </Card>

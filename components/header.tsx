@@ -13,7 +13,7 @@ import MegaDropdownNav from "./mega-dropdown-nav"
 import MobileNavSection from "./mobile-nav-section"
 
 // Empty array for backward compatibility - all navigation now comes from navigation-config.ts
-const navigationItems: Array<{label: string, items: string[]}> = []
+const navigationItems: Array<{ label: string, items: string[] }> = []
 
 export default function Header() {
   const [openSections, setOpenSections] = useState<string[]>([])
@@ -37,13 +37,13 @@ export default function Header() {
 
         <div className="hidden md:flex items-center space-x-2 flex-1 max-w-md ml-140">
           <div className="relative flex-1">
-            <Input 
-              placeholder="Search..." 
-              className="pr-4 bg-white border-gray-300 rounded-lg focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-gray-900 placeholder-gray-500" 
+            <Input
+              placeholder="Search..."
+              className="pr-4 bg-white border-gray-300 rounded-lg focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-gray-900 placeholder-gray-500"
             />
           </div>
-          <Button 
-            size="sm" 
+          <Button
+            size="sm"
             className="bg-orange-500 hover:bg-orange-600 text-white rounded-lg px-4 py-2 h-10"
           >
             <Search className="w-4 h-4" />
@@ -147,8 +147,8 @@ export default function Header() {
                         placeholder="Search..."
                         className="flex-1 bg-white border-gray-300 rounded-lg focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-gray-900 placeholder-gray-500"
                       />
-                      <Button 
-                        size="sm" 
+                      <Button
+                        size="sm"
                         className="bg-orange-500 hover:bg-orange-600 text-white rounded-lg px-4 py-2 h-10"
                       >
                         <Search className="w-4 h-4" />
@@ -206,7 +206,7 @@ export default function Header() {
                     <div className="space-y-3">
                       <div className="flex items-center space-x-3 text-sm text-gray-600">
                         <Phone className="w-4 h-4 text-blue-600" />
-                        <span>+1 234 567 8900</span>
+                        <span>+971 50 537 3817</span>
                       </div>
                       <div className="flex items-center space-x-3 text-sm text-gray-600">
                         <Mail className="w-4 h-4 text-blue-600" />
