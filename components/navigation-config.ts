@@ -32,7 +32,7 @@ export const navigationSections: NavigationSection[] = [
         title: "Stationery & Corporate Identity",
         items: [
           "Business Cards",
-          "Letterheads", 
+          "Letterheads",
           "Envelopes",
           "Folders",
           "Notepads",
@@ -48,7 +48,7 @@ export const navigationSections: NavigationSection[] = [
         title: "Brochures & Flyers",
         items: [
           "Brochures",
-          "Flyers", 
+          "Flyers",
           "Booklets & Catalogues"
         ]
       },

@@ -39,12 +39,12 @@ export default function Header() {
           <div className="relative flex-1">
             <Input
               placeholder="Search..."
-              className="pr-4 bg-white border-gray-300 rounded-lg focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-gray-900 placeholder-gray-500"
+              className="pr-4 bg-white border-black rounded-lg focus:border-black focus:ring-1 focus:ring-black text-gray-900 placeholder-gray-500"
             />
           </div>
           <Button
             size="sm"
-            className="bg-orange-500 hover:bg-orange-600 text-white rounded-lg px-4 py-2 h-10"
+            className="bg-black hover:bg-black text-white rounded-lg px-4 py-2 h-10"
           >
             <Search className="w-4 h-4" />
           </Button>
@@ -70,7 +70,12 @@ export default function Header() {
           <nav className="flex items-center justify-between">
             <div className="hidden lg:flex items-center justify-center flex-1">
               <div className="flex items-center space-x-1">
-                <DropdownMenu>
+                <Link href="/" passHref>
+                  <Button variant="ghost" className="px-4 py-3 text-sm font-medium">
+                    Home
+                  </Button>
+                </Link>
+                {/* <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="px-4 py-3 text-sm font-medium">
                       Home
@@ -87,7 +92,7 @@ export default function Header() {
                       <Link href="/services">Our Services</Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu> */}
 
                 {/* Dynamic Navigation Sections */}
                 {navigationSections.map((section) => (
@@ -136,7 +141,7 @@ export default function Header() {
                   <SheetHeader className="px-6 py-4 border-b bg-gray-50">
                     <div className="flex items-center justify-between">
                       <SheetTitle className="text-lg font-semibold text-gray-900">Menu</SheetTitle>
-                      <Image src="/hekayah-logo.png" alt="Hekayah Logo" width={80} height={30} className="h-8 w-auto" />
+                      <Image src="/hekayah-logo.png" alt="Hekayah Logo" width={70} height={30} className="h-8 w-auto" />
                     </div>
                   </SheetHeader>
 

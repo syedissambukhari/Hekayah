@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { use, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Grid, List, Search, Star } from "lucide-react"
@@ -11,97 +11,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import Header from "@/components/header"
 
-// Mock category data
-const getCategoryData = (category: string) => {
-  const categories = {
-    "print-marketing": {
-      title: "Print & Marketing",
-      description: "Professional printing solutions for all your marketing needs",
-      products: [
-        {
-          id: "business-cards",
-          name: "Premium Business Cards",
-          price: "Starting from $25",
-          image: "/images/business-cards.png",
-          rating: 4.9,
-          reviews: 156,
-          category: "Business Stationery",
-        },
-        {
-          id: "brochures",
-          name: "Custom Brochures",
-          price: "Starting from $45",
-          image: "/images/brochures.png",
-          rating: 4.8,
-          reviews: 89,
-          category: "Marketing Materials",
-        },
-        {
-          id: "flyers",
-          name: "Promotional Flyers",
-          price: "Starting from $15",
-          image: "/images/flyers.png",
-          rating: 4.7,
-          reviews: 234,
-          category: "Marketing Materials",
-        },
-        {
-          id: "catalogs",
-          name: "Product Catalogs",
-          price: "Starting from $85",
-          image: "/images/catalogs.png",
-          rating: 4.9,
-          reviews: 67,
-          category: "Marketing Materials",
-        },
-      ],
-    },
-    "fashion-textile": {
-      title: "Fashion & Textile",
-      description: "Custom apparel and textile solutions for your brand",
-      products: [
-        {
-          id: "custom-apparel",
-          name: "Custom T-Shirts",
-          price: "Starting from $12",
-          image: "/images/custom-tshirts.png",
-          rating: 4.8,
-          reviews: 298,
-          category: "Apparel",
-        },
-        {
-          id: "embroidery",
-          name: "Embroidered Polo Shirts",
-          price: "Starting from $18",
-          image: "/images/embroidered-polo.png",
-          rating: 4.9,
-          reviews: 145,
-          category: "Apparel",
-        },
-        {
-          id: "uniforms",
-          name: "Corporate Uniforms",
-          price: "Starting from $35",
-          image: "/images/corporate-uniforms.png",
-          rating: 4.7,
-          reviews: 78,
-          category: "Apparel",
-        },
-      ],
-    },
-  }
+// ✅ Import centralized data
+import { categories } from "@/lib/DESCRIPTION"
 
-  return categories[category as keyof typeof categories] || categories["print-marketing"]
-}
-
-export default function CategoryPage({ params }: { params: { category: string } }) {
+export default function CategoryPage(props: { params: Promise<{ category: string }> }) {
+  // ✅ unwrap params (Next.js 15+)
+  const params = use(props.params)
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [searchTerm, setSearchTerm] = useState("")
   const [sortBy, setSortBy] = useState("name")
   const [filterBy, setFilterBy] = useState("all")
 
-  const categoryData = getCategoryData(params.category)
+  // ✅ Get category data dynamically
+  const categoryData = categories[params.category as keyof typeof categories] || categories["print-marketing"]
 
+  // ✅ Filtering + sorting
   const filteredProducts = categoryData.products
     .filter(
       (product) =>
@@ -121,12 +45,13 @@ export default function CategoryPage({ params }: { params: { category: string } 
       }
     })
 
-  const categories = [...new Set(categoryData.products.map((p) => p.category))]
+  const categoriesList = [...new Set(categoryData.products.map((p) => p.category))]
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      {/* Header */}
+
+      {/* Header Banner */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl">
@@ -149,8 +74,9 @@ export default function CategoryPage({ params }: { params: { category: string } 
         </div>
       </div>
 
+      {/* Content */}
       <div className="container mx-auto px-4 py-8">
-        {/* Filters and Search */}
+        {/* Filters + Search */}
         <div className="flex flex-col lg:flex-row gap-4 mb-8">
           <div className="flex-1">
             <div className="relative">
@@ -171,7 +97,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Categories</SelectItem>
-                {categories.map((cat) => (
+                {categoriesList.map((cat) => (
                   <SelectItem key={cat} value={cat}>
                     {cat}
                   </SelectItem>
@@ -223,7 +149,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
         {viewMode === "grid" ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
-              <Card key={product.id} className="group hover:shadow-lg transition-all duration-300">
+              <Card key={product.slug} className="group hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-4">
                   <div className="aspect-square mb-4 overflow-hidden rounded-lg bg-gray-100">
                     <Image
@@ -246,9 +172,8 @@ export default function CategoryPage({ params }: { params: { category: string } 
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-3 h-3 ${
-                            i < Math.floor(product.rating) ? "text-yellow-500 fill-current" : "text-gray-300"
-                          }`}
+                          className={`w-3 h-3 ${i < Math.floor(product.rating) ? "text-yellow-500 fill-current" : "text-gray-300"
+                            }`}
                         />
                       ))}
                     </div>
@@ -259,7 +184,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
 
                   <div className="space-y-2">
                     <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                      <Link href={`/product/${params.category}/${product.id}`}>View Details</Link>
+                      <Link href={`/product/${params.category}/${product.slug}`}>View Details</Link>
                     </Button>
                     <Button variant="outline" size="sm" className="w-full bg-transparent">
                       Quick Quote
@@ -272,7 +197,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
         ) : (
           <div className="space-y-4">
             {filteredProducts.map((product) => (
-              <Card key={product.id} className="hover:shadow-md transition-shadow">
+              <Card key={product.slug} className="hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex gap-6">
                     <div className="w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
@@ -301,9 +226,8 @@ export default function CategoryPage({ params }: { params: { category: string } 
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`w-4 h-4 ${
-                                i < Math.floor(product.rating) ? "text-yellow-500 fill-current" : "text-gray-300"
-                              }`}
+                              className={`w-4 h-4 ${i < Math.floor(product.rating) ? "text-yellow-500 fill-current" : "text-gray-300"
+                                }`}
                             />
                           ))}
                         </div>
@@ -314,7 +238,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
 
                       <div className="flex gap-3">
                         <Button asChild className="bg-blue-600 hover:bg-blue-700">
-                          <Link href={`/product/${params.category}/${product.id}`}>View Details</Link>
+                          <Link href={`/product/${params.category}/${product.slug}`}>View Details</Link>
                         </Button>
                         <Button variant="outline">Quick Quote</Button>
                       </div>

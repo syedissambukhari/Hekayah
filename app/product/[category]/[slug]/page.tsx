@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { use, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Star, Share2, Heart, Truck, Shield, Clock } from "lucide-react"
@@ -12,70 +12,17 @@ import { Separator } from "@/components/ui/separator"
 import InquiryForm from "@/components/inquiry-form"
 import Header from "@/components/header"
 
-// Mock product data - in real app, this would come from API/database
-const getProductData = (slug: string) => {
-  const products = {
-    "floor-graphics": {
-      name: "Premium Floor Graphics",
-      category: "Workspace Branding",
-      price: "Starting from $25/sqft",
-      rating: 4.8,
-      reviews: 127,
-      images: [
-        "/images/product-floor-graphics-1.png",
-        "/images/product-floor-graphics-2.png",
-        "/images/product-floor-graphics-3.png",
-        "/images/product-floor-graphics-4.png",
-      ],
-      description:
-        "Transform your workspace with high-quality, durable floor graphics that withstand heavy foot traffic while maintaining vibrant colors and sharp details.",
-      features: [
-        "Anti-slip surface coating",
-        "UV-resistant inks",
-        "Easy installation",
-        "Custom shapes and sizes",
-        "Removable adhesive",
-      ],
-      specifications: {
-        Material: "Premium vinyl with lamination",
-        Thickness: "3.2mm",
-        Finish: "Matte anti-slip",
-        Durability: "5+ years indoor use",
-        Installation: "Self-adhesive",
-        "Minimum Order": "10 sqft",
-      },
-      variations: [
-        { name: "Standard Vinyl", price: "$25/sqft", image: "/images/variation-standard.png" },
-        { name: "Premium Anti-Slip", price: "$35/sqft", image: "/images/variation-premium.png" },
-        { name: "Textured Finish", price: "$40/sqft", image: "/images/variation-textured.png" },
-      ],
-      faqs: [
-        {
-          question: "How long do floor graphics last?",
-          answer:
-            "Our premium floor graphics are designed to last 5+ years with normal foot traffic when properly maintained.",
-        },
-        {
-          question: "Are they safe to walk on?",
-          answer: "Yes, all our floor graphics come with anti-slip coating that meets safety standards.",
-        },
-        {
-          question: "Can they be removed without damage?",
-          answer: "Yes, our graphics use removable adhesive that won't damage your floors when professionally removed.",
-        },
-      ],
-    },
-  }
+import { getProduct } from "@/lib/PRODUCT"
 
-  return products[slug as keyof typeof products] || products["floor-graphics"]
-}
+export default function ProductDetailPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
+  const { slug, category } = use(params)
+  const product = getProduct(category, slug)
 
-export default function ProductDetailPage({ params }: { params: { category: string; slug: string } }) {
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedVariation, setSelectedVariation] = useState(0)
   const [showInquiryForm, setShowInquiryForm] = useState(false)
 
-  const product = getProductData(params.slug)
+  if (!product) return <div>Product not found</div>
 
   const relatedProducts = [
     { name: "Wall Murals", image: "/images/workspace-wall-murals.png", price: "$30/sqft" },
@@ -92,12 +39,10 @@ export default function ProductDetailPage({ params }: { params: { category: stri
       <div className="bg-gray-50 py-4">
         <div className="container mx-auto px-4">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link href="/" className="text-gray-600 hover:text-gray-900">
-              Home
-            </Link>
+            <Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link>
             <span className="text-gray-400">/</span>
-            <Link href={`/${params.category}`} className="text-gray-600 hover:text-gray-900 capitalize">
-              {params.category.replace("-", " ")}
+            <Link href={`/${category}`} className="text-gray-600 hover:text-gray-900 capitalize">
+              {category.replace("-", " ")}
             </Link>
             <span className="text-gray-400">/</span>
             <span className="text-gray-900">{product.name}</span>
@@ -108,14 +53,15 @@ export default function ProductDetailPage({ params }: { params: { category: stri
       <div className="container mx-auto px-4 py-8">
         {/* Back Button */}
         <Button variant="ghost" className="mb-6" asChild>
-          <Link href={`/${params.category}`}>
+          <Link href={`/${category}`}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to {params.category.replace("-", " ")}
+            Back to {category.replace("-", " ")}
           </Link>
         </Button>
 
+        {/* Product Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Images */}
+          {/* Images */}
           <div className="space-y-4">
             <div className="aspect-square relative overflow-hidden rounded-lg bg-gray-100">
               <Image
@@ -140,42 +86,31 @@ export default function ProductDetailPage({ params }: { params: { category: stri
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`aspect-square relative overflow-hidden rounded-lg border-2 ${
-                    selectedImage === index ? "border-blue-600" : "border-gray-200"
-                  }`}
+                  className={`aspect-square relative overflow-hidden rounded-lg border-2 ${selectedImage === index ? "border-blue-600" : "border-gray-200"
+                    }`}
                 >
-                  <Image
-                    src={image || "/placeholder.svg"}
-                    alt={`${product.name} ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
+                  <Image src={image} alt={`${product.name} ${index + 1}`} fill className="object-cover" />
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Product Info */}
+          {/* Info */}
           <div className="space-y-6">
             <div>
-              <Badge variant="secondary" className="mb-2">
-                {product.category}
-              </Badge>
+              <Badge variant="secondary" className="mb-2">{product.sectionId}</Badge>
               <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
               <div className="flex items-center space-x-4 mb-4">
-                <div className="flex items-center space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-4 h-4 ${
-                        i < Math.floor(product.rating) ? "text-yellow-500 fill-current" : "text-gray-300"
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`w-4 h-4 ${i < Math.floor(product.rating) ? "text-yellow-500 fill-current" : "text-gray-300"
                       }`}
-                    />
-                  ))}
-                  <span className="text-sm text-gray-600 ml-2">
-                    {product.rating} ({product.reviews} reviews)
-                  </span>
-                </div>
+                  />
+                ))}
+                <span className="text-sm text-gray-600 ml-2">
+                  {product.rating} ({product.reviews} reviews)
+                </span>
               </div>
               <p className="text-2xl font-bold text-blue-600 mb-4">{product.price}</p>
               <p className="text-gray-600 leading-relaxed">{product.description}</p>
@@ -185,8 +120,8 @@ export default function ProductDetailPage({ params }: { params: { category: stri
             <div>
               <h3 className="font-semibold mb-3">Key Features:</h3>
               <ul className="space-y-2">
-                {product.features.map((feature, index) => (
-                  <li key={index} className="flex items-center space-x-2">
+                {product.features.map((feature, i) => (
+                  <li key={i} className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-blue-600 rounded-full" />
                     <span className="text-sm">{feature}</span>
                   </li>
@@ -194,27 +129,18 @@ export default function ProductDetailPage({ params }: { params: { category: stri
               </ul>
             </div>
 
-            {/* Product Variations */}
+            {/* Variations */}
             <div>
               <h3 className="font-semibold mb-3">Available Options:</h3>
               <div className="grid grid-cols-1 gap-3">
-                {product.variations.map((variation, index) => (
+                {product.variations.map((variation, i) => (
                   <div
-                    key={index}
-                    onClick={() => setSelectedVariation(index)}
-                    className={`flex items-center space-x-3 p-3 border rounded-lg cursor-pointer transition-all ${
-                      selectedVariation === index
-                        ? "border-blue-600 bg-blue-50"
-                        : "border-gray-200 hover:border-gray-300"
-                    }`}
+                    key={i}
+                    onClick={() => setSelectedVariation(i)}
+                    className={`flex items-center space-x-3 p-3 border rounded-lg cursor-pointer transition-all ${selectedVariation === i ? "border-blue-600 bg-blue-50" : "border-gray-200 hover:border-gray-300"
+                      }`}
                   >
-                    <Image
-                      src={variation.image || "/placeholder.svg"}
-                      alt={variation.name}
-                      width={50}
-                      height={50}
-                      className="rounded"
-                    />
+                    <Image src={variation.image} alt={variation.name} width={50} height={50} className="rounded" />
                     <div className="flex-1">
                       <div className="font-medium">{variation.name}</div>
                       <div className="text-sm text-gray-600">{variation.price}</div>
@@ -250,9 +176,9 @@ export default function ProductDetailPage({ params }: { params: { category: stri
           </div>
         </div>
 
-        {/* Product Details Tabs */}
+        {/* Tabs */}
         <div className="mt-16">
-          <Tabs defaultValue="about" className="w-full">
+          <Tabs defaultValue="about">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="about">About</TabsTrigger>
               <TabsTrigger value="specifications">Specifications</TabsTrigger>
@@ -263,22 +189,7 @@ export default function ProductDetailPage({ params }: { params: { category: stri
               <Card>
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4">Product Details</h3>
-                  <div className="prose max-w-none">
-                    <p className="mb-4">
-                      Our premium floor graphics are the perfect solution for businesses looking to enhance their
-                      workspace branding while maintaining safety and durability. Each graphic is custom-designed to
-                      your specifications and manufactured using state-of-the-art printing technology.
-                    </p>
-                    <p className="mb-4">
-                      Whether you're looking to create wayfinding solutions, promotional displays, or decorative
-                      elements, our floor graphics deliver exceptional results that withstand heavy foot traffic and
-                      maintain their vibrant appearance for years.
-                    </p>
-                    <p>
-                      All graphics come with professional installation guidelines and can be installed by your team or
-                      our certified installation professionals.
-                    </p>
-                  </div>
+                  <p className="text-gray-600">{product.description}</p>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -304,11 +215,11 @@ export default function ProductDetailPage({ params }: { params: { category: stri
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4">Frequently Asked Questions</h3>
                   <div className="space-y-4">
-                    {product.faqs.map((faq, index) => (
-                      <div key={index}>
+                    {product.faqs.map((faq, i) => (
+                      <div key={i}>
                         <h4 className="font-medium mb-2">{faq.question}</h4>
                         <p className="text-gray-600 mb-4">{faq.answer}</p>
-                        {index < product.faqs.length - 1 && <Separator />}
+                        {i < product.faqs.length - 1 && <Separator />}
                       </div>
                     ))}
                   </div>
@@ -322,21 +233,21 @@ export default function ProductDetailPage({ params }: { params: { category: stri
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-8">Related Products</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {relatedProducts.map((relatedProduct, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 cursor-pointer">
+            {relatedProducts.map((related, i) => (
+              <Card key={i} className="group hover:shadow-lg transition-all cursor-pointer">
                 <CardContent className="p-4">
                   <div className="aspect-square mb-4 overflow-hidden rounded-lg">
                     <Image
-                      src={relatedProduct.image || "/placeholder.svg"}
-                      alt={relatedProduct.name}
+                      src={related.image}
+                      alt={related.name}
                       width={200}
                       height={200}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                   </div>
-                  <h3 className="font-semibold mb-2">{relatedProduct.name}</h3>
-                  <p className="text-blue-600 font-medium mb-3">{relatedProduct.price}</p>
-                  <Button variant="outline" size="sm" className="w-full bg-transparent">
+                  <h3 className="font-semibold mb-2">{related.name}</h3>
+                  <p className="text-blue-600 font-medium mb-3">{related.price}</p>
+                  <Button variant="outline" size="sm" className="w-full">
                     View Details
                   </Button>
                 </CardContent>
@@ -346,7 +257,7 @@ export default function ProductDetailPage({ params }: { params: { category: stri
         </div>
       </div>
 
-      {/* Inquiry Form Modal */}
+      {/* Inquiry Form */}
       {showInquiryForm && (
         <InquiryForm isOpen={showInquiryForm} onClose={() => setShowInquiryForm(false)} productName={product.name} />
       )}
