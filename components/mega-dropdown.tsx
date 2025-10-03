@@ -12,6 +12,7 @@ interface DropdownCategory {
 
 interface MegaDropdownProps {
   categories: DropdownCategory[]
+  sectionId: string
   featuredImage?: {
     src: string
     alt: string
@@ -28,6 +29,7 @@ interface MegaDropdownProps {
 
 export default function MegaDropdown({ 
   categories, 
+  sectionId,
   featuredImage, 
   mostPopular 
 }: MegaDropdownProps) {
@@ -49,7 +51,7 @@ export default function MegaDropdown({
                     {categories[0]?.items.map((item, index) => (
                       <li key={index}>
                         <Link
-                          href={`/product/print-marketing/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                          href={`/product/${sectionId}/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
                           className="text-xs text-gray-600 hover:text-blue-600 hover:underline transition-colors"
                         >
                           {item}
@@ -71,7 +73,7 @@ export default function MegaDropdown({
                     {categories[1]?.items.map((item, index) => (
                       <li key={index}>
                         <Link
-                          href={`/product/print-marketing/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                          href={`/product/${sectionId}/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
                           className="text-xs text-gray-600 hover:text-blue-600 hover:underline transition-colors"
                         >
                           {item}
@@ -90,7 +92,7 @@ export default function MegaDropdown({
                     {categories[2]?.items.map((item, index) => (
                       <li key={index}>
                         <Link
-                          href={`/product/print-marketing/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                          href={`/product/${sectionId}/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
                           className="text-xs text-gray-600 hover:text-blue-600 hover:underline transition-colors"
                         >
                           {item}
@@ -109,7 +111,7 @@ export default function MegaDropdown({
                     {categories[3]?.items.map((item, index) => (
                       <li key={index}>
                         <Link
-                          href={`/product/print-marketing/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                          href={`/product/${sectionId}/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
                           className="text-xs text-gray-600 hover:text-blue-600 hover:underline transition-colors"
                         >
                           {item}
@@ -131,7 +133,7 @@ export default function MegaDropdown({
                     {categories[4]?.items.map((item, index) => (
                       <li key={index}>
                         <Link
-                          href={`/product/print-marketing/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                          href={`/product/${sectionId}/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
                           className="text-xs text-gray-600 hover:text-blue-600 hover:underline transition-colors"
                         >
                           {item}
@@ -150,7 +152,7 @@ export default function MegaDropdown({
                     {categories[5]?.items.map((item, index) => (
                       <li key={index}>
                         <Link
-                          href={`/product/print-marketing/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                          href={`/product/${sectionId}/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
                           className="text-xs text-gray-600 hover:text-blue-600 hover:underline transition-colors"
                         >
                           {item}
@@ -169,7 +171,7 @@ export default function MegaDropdown({
                     {categories[6]?.items.map((item, index) => (
                       <li key={index}>
                         <Link
-                          href={`/product/print-marketing/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
+                          href={`/product/${sectionId}/${item.toLowerCase().replace(/\s+/g, "-").replace(/[&/]/g, "")}`}
                           className="text-xs text-gray-600 hover:text-blue-600 hover:underline transition-colors"
                         >
                           {item}

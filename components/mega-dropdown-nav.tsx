@@ -34,6 +34,7 @@ export default function MegaDropdownNav({
       {activeDropdown === section.id && (
         <MegaDropdown 
           categories={section.categories}
+          sectionId={section.id}
           featuredImage={section.featuredImage}
           mostPopular={section.mostPopular}
         />
