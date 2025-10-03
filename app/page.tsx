@@ -17,7 +17,7 @@ export default function HekayahWebsite() {
     {
       title: "Premium Advertising Solutions",
       description: "Transform your brand with our comprehensive range of advertising gifts and supplies",
-      image: "/images/slider1.jpg",
+      image: "/products/slider/slider1.jpeg",
     },
     {
       title: "Corporate Branding Excellence",
@@ -40,8 +40,8 @@ export default function HekayahWebsite() {
 
   const tradeShowProducts = [
     { name: "Pop-up Displays", image: "/images/trade-show-popup.png" },
-    { name: "Banner Stands", image: "/images/trade-show-banners.png" },
-    { name: "Exhibition Booths", image: "/images/trade-show-booth.png" },
+    { name: "Banner Stands", image: "/products/slider/stand.jpeg" },
+    { name: "Exhibition Booths", image: "/products/slider/exibition.jpeg" },
     { name: "Display Systems", image: "/images/trade-show-systems.png" },
   ]
 
@@ -53,10 +53,10 @@ export default function HekayahWebsite() {
       image: "/images/testimonial-ahmed.png",
     },
     {
-      name: "Sarah Williams",
+      name: "Shan Williams",
       rating: 5,
       text: "The exhibition display they created helped us win three new major clients at the trade show.",
-      image: "/images/testimonial-sarah.png",
+      image: "/images/testimonial-ahmed.png",
     },
     {
       name: "Mohammed Hassan",
@@ -242,7 +242,7 @@ export default function HekayahWebsite() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden">
-            <Image src="/images/poster-printing-facility.png" alt="Featured Poster" fill className="object-cover" />
+            <Image src="/products/slider/flyer1.jpeg" alt="Featured Poster" fill className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
             <div className="absolute inset-0 flex items-center">
               <div className="text-white px-8 md:px-12 max-w-2xl">
@@ -300,7 +300,7 @@ export default function HekayahWebsite() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-96">
             <div className="relative rounded-2xl overflow-hidden">
-              <Image src="/images/corporate-identity.png" alt="Corporate Branding" fill className="object-cover" />
+              <Image src="/products/slider/corporate.jpeg" alt="Corporate Branding" fill className="object-cover" />
               <div className="absolute inset-0 bg-black/40 flex items-end">
                 <div className="text-white p-6">
                   <h3 className="text-2xl font-bold mb-2">Corporate Branding</h3>
@@ -311,7 +311,7 @@ export default function HekayahWebsite() {
 
             <div className="grid grid-rows-2 gap-6">
               <div className="relative rounded-2xl overflow-hidden">
-                <Image src="/images/event-branding.png" alt="Event Materials" fill className="object-cover" />
+                <Image src="/products/slider/event.jpeg" alt="Event Materials" fill className="object-cover" />
                 <div className="absolute inset-0 bg-black/40 flex items-end">
                   <div className="text-white p-4">
                     <h3 className="text-lg font-bold mb-1">Event Materials</h3>
