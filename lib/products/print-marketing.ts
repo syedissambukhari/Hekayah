@@ -10,7 +10,7 @@ export const printMarketingProducts: Product[] = [
         price: "Starting from $25",
         rating: 4.9,
         reviews: 156,
-        images: ["/images/business-card1.png", "/images/business-card2.png"],
+        images: ["/products/01 Business card/3d_foil_business_cards_sharjah.jpg", "/products/01 Business card/classic_business_cards_printing_sharjah.png"],
         description: "Make a lasting impression with high-quality custom business cards.",
         features: ["Matte or glossy finish", "Custom sizes available", "Eco-friendly paper options"],
         specifications: {
@@ -19,8 +19,8 @@ export const printMarketingProducts: Product[] = [
             "Printing Sides": "Single or Double",
         },
         variations: [
-            { name: "Matte Finish", price: "$25", image: "/images/variation-matte.png" },
-            { name: "Gloss Finish", price: "$30", image: "/images/variation-gloss.png" },
+            { name: "Matte Finish", price: "$25", image: "/products/01 Business card/bristol_pack_business_cards_sharjah.jpg" },
+            { name: "Gloss Finish", price: "$30", image: "/products/01 Business card/classic_ice_gold_business_cards_sharjah.jpg" },
         ],
         faqs: [
             { question: "Can I print on both sides?", answer: "Yes, we offer both single and double-sided printing." },
